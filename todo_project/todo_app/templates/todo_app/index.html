@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html5>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>To Do List</title>
+    </head>
+
+<body>
+
+    <nav>
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href='{% url "index" %}'class='brand-logo'>To Do App</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class='container'>
+        <div class="row">
+            <h2>Add item</h2>
+        </div>
+    </div>
+        
+    <div class='container'>
+        <div class='row'>
+            <form action='{% url "details" %}' method='post'>
+                {% csrf_token %}
+                <input type='text' name='todo_item' placeholder='Add item'>
+                <button class='btn waves-effect' type='submit'><i class='material-icons right'>add_box</i>Add item</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+            <div class="row">
+                <ul class='collection'>
+                    {% for todo_item in created_todo %}
+                        <li class='collection-item'><div>{{todo_item.text}}
+                            <a type='submit' href='{% url "delete" todo_item.id %}'class='waves-effect waves-light red accent-4 secondary-content'><i class='material-icons'>close</i></a></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
